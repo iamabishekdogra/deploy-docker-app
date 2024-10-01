@@ -1,0 +1,44 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+    
+    - name: Install Docker and dependencies
+      ansible.builtin.apt:
+        name:
+          - docker.io
+          - python3-pip
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+    
+    - name: Start Docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: ubuntu  # Change from ec2-user to ubuntu
+        groups: docker
+        append: yes
+
+    - name: Pull Docker image
+      community.docker.docker_image:
+        name: adograbhi/python
+        tag: latest
+        source: pull
+
+    - name: Run Docker container
+      community.docker.docker_container:
+        name: flask_app
+        image: adograbhi/python:latest
+        state: started
+        ports:
+          - "5000:5000"

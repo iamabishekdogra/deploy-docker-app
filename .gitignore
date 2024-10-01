@@ -1,0 +1,26 @@
+# Terraform
+tf/.terraform
+tf/.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+tf/terraform.tfstate
+tf/terraform.tfstate.backup
+
+# Editor/IDE
+.vscode/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ansible (ignore sensitive inventory files if necessary)
+ansible/inventory.ini
+
+# Docker logs
+docker/*.log
+
+# General logs and temp files
+*.log
+*.tmp
+*.bak
