@@ -5,7 +5,7 @@ cd tf || { echo "Failed to navigate to tf directory"; exit 1; }
 
 # Apply Terraform configuration
 terraform init
-terraform apply -auto-approve  # Automatically approve the changes without interactive prompts
+terraform apply
 
 # Get the public IP from Terraform output
 EC2_PUBLIC_IP=$(terraform output -raw public_ip)
@@ -19,7 +19,7 @@ fi
 # Navigate to Ansible directory
 cd ../ansible || { echo "Failed to navigate to ansible directory"; exit 1; }
 
-# Create inventory file if it doesn't exist
+# Creating inventory file 
 if [ ! -f inventory.ini ]; then
     echo "[webservers]" > inventory.ini
 fi
